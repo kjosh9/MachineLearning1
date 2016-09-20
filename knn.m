@@ -6,17 +6,19 @@
 %f - distance metric
 %D - ?
 
+
+%this really only works with euclidean distance
+
 function predlabels = knn(traindata, trainlabels, testdata, k, f, D)
     
 
     %calculate the dissimilarity of the test point x onto each of the train points    
     l1 = size(testdata, 1);
     predlabels = zeros(l1,1);
-    l2 = size(traindata, 1);
     
     for i = 1:l1
         
-        Dist = pdist2(testdata(i,:), traindata, 'euclidean');
+        Dist = pdist2(testdata(i,:), traindata, f);
                
         %find the train point x^n wich is nearest to x
         
@@ -28,7 +30,7 @@ function predlabels = knn(traindata, trainlabels, testdata, k, f, D)
         %find the i3th closest index
         %put in kindex
             
-        classes(1:k,1) = trainlabels(distindex(1,1:k),1)
+        classes(1:k,1) = trainlabels(distindex(1,1:k),1);
         
         
         %assign the class label
